@@ -1,7 +1,7 @@
 import {
   AfterContentInit,
   AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, Component, ElementRef,
-  inject, Injector, input, Query, QueryList, Renderer2, ViewChild, ViewChildren
+  inject, Injector, input, OnDestroy, Query, QueryList, Renderer2, ViewChild, ViewChildren
 } from '@angular/core';
 import { IntersectionRoot } from '../intersection-root';
 
@@ -12,7 +12,7 @@ import { IntersectionRoot } from '../intersection-root';
   styleUrl: './gallery.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class Gallery implements AfterViewInit, AfterViewChecked, AfterContentInit {
+export class Gallery implements AfterViewInit, AfterViewChecked, AfterContentInit, OnDestroy {
   items = input<any[] | undefined>();
 
   @ViewChildren("item")
@@ -29,8 +29,22 @@ export class Gallery implements AfterViewInit, AfterViewChecked, AfterContentIni
   }
 
   ngAfterViewInit(): void {
+    // console.log(this.itemsRef?.last.nativeElement);
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('DOMContentLoaded');
+      // this.observer = createObserver(this.itemsRef?.last.nativeElement);
+    })
+
+    window.onload = () => {
+      // this.observer = createObserver(this.itemsRef?.last.nativeElement);
+      this.itemsRef?.changes.subscribe(ch => {
+        console.log(ch);
+        
+      })
+    }
     // this.initIntersectionObserver(this.itemsRef?.last.nativeElement);
-    // createObserver(this.itemsRef?.last.nativeElement);
+
 
     // this.itemsRef?.changes.subscribe((items) => {
     //   console.log(items);
@@ -57,6 +71,10 @@ export class Gallery implements AfterViewInit, AfterViewChecked, AfterContentIni
 
     this.observer.observe(target);
   }
+
+  ngOnDestroy(): void {
+    this.observer?.disconnect();
+  }
 }
 
 
@@ -71,8 +89,9 @@ function createObserver(element: HTMLElement) {
 
   observer = new IntersectionObserver(handleIntersect, options);
   observer.observe(element);
+  return observer;
 }
 
 function handleIntersect() {
-  console.log('100%1111111111');
+  console.log('100%');
 }
