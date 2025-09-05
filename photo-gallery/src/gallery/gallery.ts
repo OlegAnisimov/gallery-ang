@@ -95,3 +95,9 @@ function createObserver(element: HTMLElement) {
 function handleIntersect() {
   console.log('100%');
 }
+
+// TODO:
+/*
+* https://stackoverflow.com/questions/67272516/intersection-observer-in-angular
+https://giancarlobuomprisco.com/angular/intersection-observer-with-angular
+*/
