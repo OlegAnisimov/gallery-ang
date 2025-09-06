@@ -1,8 +1,26 @@
 <p>gallery works!</p>
 
 
-    @for (item of items(); track $index) {
-      <div #item class="img-container">
-        <span>{{item.title}}</span>
-      </div>
-    }
+@for (item of items(); track $index; let last = $last, idx = $index, limit = $count) {
+  @if (idx !== limit - 1) {
+    <!-- appTestDirective [color]="'green'" -->
+    <div #item class="img-container"   [color]="'green'" appTestDirective>
+      <span> #{{idx}}, {{item.title}} </span>
+    </div>
+  } @else {
+        <div #item class="img-container" observeVisibility (visible)="onVisible($event)">
+      <span> #{{idx}}, {{item.title}} </span>
+    </div>
+  }
+
+  <!-- @if (!last) {
+<div #item class="img-container">
+  <span>{{item.title}}</span>
+</div>
+} -->
+<!-- @if (last) {
+<div #item class="img-container" observeVisibility (visible)="onVisible($event)">
+  <span>{{item.title}}</span>
+</div>
+} -->
+}
