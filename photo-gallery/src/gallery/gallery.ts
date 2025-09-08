@@ -5,10 +5,11 @@ import {
 } from '@angular/core';
 import { IntersectionRoot } from '../intersection-root';
 import { TestDirective } from '../app/test-directive';
+import { TestComponent } from "../app/test-component/test-component";
 
 @Component({
   selector: 'app-gallery',
-  imports: [IntersectionRoot, TestDirective],
+  imports: [IntersectionRoot, TestDirective, TestComponent],
   templateUrl: './gallery.html',
   styleUrl: './gallery.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

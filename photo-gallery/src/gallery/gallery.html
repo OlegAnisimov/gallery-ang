@@ -12,15 +12,16 @@
       <span> #{{idx}}, {{item.title}} </span>
     </div>
   }
+}
 
-  <!-- @if (!last) {
-<div #item class="img-container">
-  <span>{{item.title}}</span>
-</div>
+<!-- @defer (on viewport) {
+    <app-test-component/>
+} @placeholder {
+  <div>Large component placeholder</div>
 } -->
-<!-- @if (last) {
-<div #item class="img-container" observeVisibility (visible)="onVisible($event)">
-  <span>{{item.title}}</span>
-</div>
-} -->
+
+@defer (on timer(1500ms)) {
+    <app-test-component/>
+} @placeholder {
+  <div>Large component placeholder</div>
 }
